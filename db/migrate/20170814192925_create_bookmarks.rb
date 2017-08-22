@@ -4,7 +4,7 @@ class CreateBookmarks < ActiveRecord::Migration[5.1]
       t.string :url
       t.references :topic, foreign_key: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

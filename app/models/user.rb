@@ -6,9 +6,6 @@ class User < ApplicationRecord
 
   has_many :topics
 
-  def new
-    @user = User.new
-  end
 
 
 end
