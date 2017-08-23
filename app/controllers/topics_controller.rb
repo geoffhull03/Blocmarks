@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
 
   def show
     @topics = Topic.find(params[:id])
-    @bookmarks = @topic.bookmarks
+
   end
 
   def new
@@ -13,8 +13,10 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new(params.require(:topic).permit(:title))
+    @topic = Topic.new
+    @topic.title = params[:topic][:title]
     @topic.user = current_user
+    
     if @topic.save
       flash[:notice] =  "Topic Saved!"
       redirect_to @topic

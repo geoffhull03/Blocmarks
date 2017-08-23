@@ -1,12 +1,12 @@
 <h1>Topics</h1>
-<%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+<%= link_to "New Topic", new_topic_path, class: 'btn btn-primary' %>
 
 <div class="row">
   <div class="col-md-8">
     <% @topics.each do |topic| %>
       <div class="media">
         <div class="media-body">
-          <h4 class="media-heading">
+          <h3 class="media-heading">
             <%= link_to topic.title, topic %>
               <br>
               <br>
@@ -14,7 +14,7 @@
                 <%= link_to bookmark.url, bookmark.url, :target => '_blank' %>
                 <br>
               <% end %>
-          </h4>
+          </h3>
         </div>
       </div>
     <% end %>
