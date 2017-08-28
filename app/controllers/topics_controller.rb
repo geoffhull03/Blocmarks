@@ -1,11 +1,12 @@
 class TopicsController < ApplicationController
+  include TopicsHelper
+  before_action :authenticate_user!
   def index
     @topics = Topic.all
   end
 
   def show
-    @topics = Topic.find(params[:id])
-
+    @topic = Topic.find(params[:id])
   end
 
   def new
@@ -13,46 +14,43 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new
-    @topic.title = params[:topic][:title]
-    @topic.user = current_user
-    
+    @topic = Topic.new(topic_params)
+
     if @topic.save
-      flash[:notice] =  "Topic Saved!"
       redirect_to @topic
     else
-      flash[:error] = "There was an error. Please try again"
       render :new
     end
   end
 
   def edit
     @topic = Topic.find(params[:id])
-    @topic.save!
   end
 
   def update
     @topic = Topic.find(params[:id])
-    if @topic.update_attributes(params.require(:topic).permit(:title))
-      flash[:notice] = "Topic saved!"
+    @topic.assign_attributes(topic_params)
+
+    if @topic.save
       redirect_to @topic
     else
-      flash[:error] = "Error saving topic. Please try again."
       render :edit
     end
   end
 
-
   def destroy
-    @topic = Topic.find(params[:id])
+     @topic = Topic.find(params[:id])
 
-    if @topic.destroy
-      flash[:notice] = "\"#{@topic.title}\" was deleted successfully."
-      redirect_to topics_path
-    else
-      flash[:error] = "There was an error deleting the topic."
-      render :show
-    end
+     if @topic.destroy
+       redirect_to action: :index
+     else
+       render :show
+     end
+   end
 
+  private
+
+  def topic_params
+    params.require(:topic).permit(:title)
   end
 end
