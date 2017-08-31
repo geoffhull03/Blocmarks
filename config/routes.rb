@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'incoming/create'
 
   devise_for :users
 
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
   end
 
   resources :bookmarks, except: :index
+
+  post :incoming, to: 'incoming#create'
 
   get 'welcome/index'
 
