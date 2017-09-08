@@ -16,5 +16,5 @@ Rails.application.routes.draw do
 
   get 'welcome/about'
 
-  root 'welcome#index'
+  root 'topics#index'
 end
