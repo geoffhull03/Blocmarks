@@ -35,6 +35,8 @@ class BookmarksController < ApplicationController
    @topic = Topic.find(params[:topic_id])
    @bookmark = Bookmark.find(params[:id])
    @bookmark.assign_attributes(bookmark_params)
+   @bookmark.url = params[:bookmark][:url]
+   @bookmark.user_name = current_user.user_name
    authorize @bookmark
 
 

@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   resources :users
   resources :topics do
     resources :bookmarks, except: :index
+      resources :likes, only: [:index, :create, :destroy]
   end
 
-  resources :bookmarks, except: :index
+
 
   post :incoming, to: 'incoming#create'
 
